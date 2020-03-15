@@ -20,7 +20,7 @@ module MamkenSchutken
           'Authorization' => "Bearer #{@token}"
         }
       )
-      p response
+      return true if response.code == 204
     end
   end
 end

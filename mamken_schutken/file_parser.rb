@@ -2,8 +2,10 @@ require 'json'
 
 module MamkenSchutken
   class FileParser
-    def initialize(file_path)
+    def initialize(file_path, token, address)
       @file_path = file_path
+      @token = token
+      @address = address
     end
 
     def operate_file
@@ -14,27 +16,22 @@ module MamkenSchutken
         lines << operate_line(line)
       end
       backup_file
-      empty_file
-      lines.compact
-
-
-      # p JSON.pretty_generate(lines)
-      # File.open('../Chat Dumps/result.json', 'w') do |f|
-      #   f.write(JSON.pretty_generate(lines))
-      # end
+      result = MamkenSchutken::Sender.new(lines.compact, @token, @address).send
+      empty_file if result
+      nil
     end
 
     private
 
-    def backup_file
-      File.open("../Chat Dumps/auto backup #{Time.now.to_s}.txt", 'w') do |w|
-        w.write(@text)
-      end
-    end
-
     def empty_file
       File.open(@file_path, 'w') do |w|
         w.write('')
+      end
+    end
+
+    def backup_file
+      File.open("../Chat Dumps/auto backup #{Time.now.to_s}.txt", 'w') do |w|
+        w.write(@text)
       end
     end
 
@@ -46,8 +43,8 @@ module MamkenSchutken
       line_result if line_result != {}
     end
 
-    def self.parse
-      parsed = FileParser.new('../Chat Dumps/Constant Chat Log.txt')
+    def self.parse(token, address)
+      parsed = FileParser.new('../Chat Dumps/Constant Chat Log.txt', token, address)
       parsed.operate_file
     end
   end
