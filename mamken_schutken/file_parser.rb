@@ -44,8 +44,7 @@ module MamkenSchutken
     end
 
     def self.parse(token, address)
-      parsed = FileParser.new('../Chat Dumps/Constant Chat Log.txt', token, address)
-      parsed.operate_file
+      FileParser.new('../Chat Dumps/Constant Chat Log.txt', token, address).operate_file
     end
   end
 end
