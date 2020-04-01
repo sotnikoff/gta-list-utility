@@ -30,7 +30,7 @@ module MamkenSchutken
     end
 
     def backup_file
-      File.open("../Chat Dumps/auto backup #{Time.now.to_s}.txt", 'w') do |w|
+      File.open("../Chat Dumps/auto_backup_#{Time.now.to_i}.txt", 'w') do |w|
         w.write(@text)
       end
     end
