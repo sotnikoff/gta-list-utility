@@ -6,7 +6,7 @@ module Params
 
     def init
       File.open(@file) do |f|
-        @params = JSON.parse(f.read).slice('address', 'token')
+        @params = JSON.parse(f.read).slice('address', 'token', 'interval')
       end
     end
 

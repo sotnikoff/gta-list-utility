@@ -20,5 +20,17 @@ module Utility
       )
       return true if response.code == @expected_response
     end
+
+    def put
+      response = HTTParty.put(
+        @address,
+        body: @body.to_json,
+        headers: {
+          'Content-Type' => 'application/json',
+          'Authorization' => "Bearer #{@token}"
+        }
+      )
+      return response.body if response.code == @expected_response
+    end
   end
 end

@@ -1,4 +1,5 @@
 {
   "token": "insert_token_here",
-  "address": "backend_url"
+  "address": "backend_url",
+  "interval": 10
 }
